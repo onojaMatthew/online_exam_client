@@ -135,13 +135,13 @@ const Start = () => {
         <Col xs="12" sm="12" md="12" lg="4" xl="4" className="start-left-cont">
           <h3 className="text-center">Welcome to XYZ Test</h3>
           <Row className="mt-5">
-            <Col xs="6" sm="6" md="6" lg="6" xl="6">
+            <Col xs="6" sm="6" md="6" lg="7" xl="7">
               <p className="questn-no">No. of questions</p>
-              <p className="questn-no">{userQuestions && userQuestions.length}</p>
+              <p className="questn-no"><strong>{userQuestions && userQuestions.length}</strong></p>
             </Col>
-            <Col xs="6" sm="6" md="6" lg="6" xl="6">
-              <p>Test duration</p>
-              <p><strong>{counter.length > 0 ? counter : `${time}:00 mins left`}</strong></p>
+            <Col xs="6" sm="6" md="6" lg="5" xl="5">
+              <p className="duration">Test duration</p>
+              <p className="duration"><strong>{counter.length > 0 ? counter : `${time}:00 mins left`}</strong></p>
             </Col>
           </Row>  
           <Row className="text-center pl-5">

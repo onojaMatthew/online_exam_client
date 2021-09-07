@@ -13,7 +13,7 @@
 }
 
 
-.question {
+.question, .duration, .questn-no {
   font-size: 22px;
 }
 
