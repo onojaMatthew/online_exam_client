@@ -21,6 +21,7 @@ const Start = () => {
   const [ currentQuestion, setCurrentQuestion ] = useState({});
   const [ userAnswer, setUserAnswer ] = useState([{ "ans": "", "question": "" }]);
   const [ start, setStart ] = useState(false);
+  const [ checked, setChecked ] = useState("");
   const history = useHistory();
   const match = useRouteMatch()
 
@@ -60,7 +61,8 @@ const Start = () => {
   }
 
   const handleChange = (e, id) => {
-    const { value, name } = e.target
+    const { value } = e.target
+    setChecked(value);
     let newArr = [...userAnswer, { ans: value, question: id }];
     setUserAnswer(newArr);
   }
@@ -110,7 +112,11 @@ const Start = () => {
     }
   }, [ questions, solutionSuccess ]);
 
-  console.log(userAnswer, currentQuestion, " the user answer")
+  const handleNext = () => {
+    setChecked("");
+    setNum(num + 1);
+  }
+
   return (
     <div>
       {questionLoading ? (
@@ -161,7 +167,8 @@ const Start = () => {
               <p>
                 <Input 
                   value={"optionA"} 
-                  type="radio" 
+                  type="radio"
+                  checked={checked === "optionA"}
                   onChange={(e) => handleChange(e,currentQuestion._id)} 
                   name={`${currentQuestion && currentQuestion?.question.trim()}`} />{"  "}{currentQuestion && currentQuestion.optionA ? "A " : null}{" "} 
                   {currentQuestion?.optionA}
@@ -170,6 +177,7 @@ const Start = () => {
                 <Input 
                   type="radio"
                   value="optionB" 
+                  checked={checked === "optionB"}
                   onChange={(e) => handleChange(e,currentQuestion._id,)} 
                   name={`${currentQuestion?.question && currentQuestion?.question.trim()}`}/>{"  "}
                   {currentQuestion && currentQuestion.optionB ? "B " : null}{" "} 
@@ -179,6 +187,7 @@ const Start = () => {
                 <Input 
                   value="optionC" 
                   type="radio" 
+                  checked={checked === "optionC"}
                   onChange={(e) => handleChange(e,currentQuestion._id)} 
                   name={`${currentQuestion?.question && currentQuestion?.question.trim()}`}/>{"  "}{currentQuestion && currentQuestion.optionC ? "C " : null}{" "} 
                   {currentQuestion?.optionC}
@@ -187,13 +196,15 @@ const Start = () => {
                 <Input 
                   value="optionD" 
                   type="radio" 
+                  checked={checked === "optionD"}
                   onChange={(e) => handleChange(e,currentQuestion._id)} 
                   name={`${currentQuestion?.question && currentQuestion?.question.trim()}`}/>{"  "}{currentQuestion && currentQuestion.optionD ? "D " : null}{" "} 
                   {currentQuestion?.optionD}</p>
               <p>
                 <Input 
                   value="optionE" 
-                  type="radio" 
+                  type="radio"
+                  checked={checked === "optionE"}
                   onChange={(e) => handleChange(e,currentQuestion._id)} 
                   name={`${currentQuestion?.question && currentQuestion?.question.trim()}`}/>{"  "}{currentQuestion && currentQuestion.optionE ? "E " : null}{" "} 
                   {currentQuestion?.optionE}
@@ -202,7 +213,7 @@ const Start = () => {
                 {num === userQuestions.length ? 
                   <Button className="question-next-btn" onClick={handleSubmit}>Submit your answers</Button> : solutionLoading && num === userQuestions.length - 1 ? 
                   <Button className="question-next-btn" loading>Processing...</Button> :
-                  <Button className="question-next-btn" onClick={() => setNum(num + 1)}>Next question</Button>
+                  <Button className="question-next-btn" onClick={handleNext}>Next question</Button>
                 }
               </div>
             </Col>
